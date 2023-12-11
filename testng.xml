@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="true" name="Suite">
+    <listeners>
+        <listener class-name="Listeners.Listeners"/>
+    </listeners>
+
+
+    <parameter name="browser" value="firefox"/>
+    <parameter name="browser" value="chrome"/>
+
+    <parameter name="phoneNumber" value="254735638271"></parameter>
+    <parameter name="password" value="2020"></parameter>
+    <parameter name="url" value="https://www.betika.com/en-ke/"></parameter>
+    <test name="betika" preserve-order="true">
+        <classes>
+            <class name="com.betika.test_cases.RegistrationTest"/>
+
+        </classes>
+    </test>
+
+</suite> 
