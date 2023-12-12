@@ -14,7 +14,17 @@
     <parameter name="url" value="https://www.betika.com/en-ke/"></parameter>
     <test name="betika" preserve-order="true">
         <classes>
-            <class name="com.betika.test_cases.RegistrationTest"/>
+
+            <!-- <class name="com.betika.test_cases.RegistrationTest"/> -->
+              <!-- Run LoginTest in headless mode -->
+            <!-- <class name="com.betika.test_cases.LoginTest">
+                <methods>
+                    <parameter name="browser" value="chrome-headless"/>
+                </methods>
+            </class> -->
+            <class name="com.betika.test_cases.LoginDataProvider"/>
+            <!-- <class name="com.betika.test_cases.BetPlacementTest"/>
+            <class name="com.betika.test_cases.MyBetsTest"/> -->
 
         </classes>
     </test>
