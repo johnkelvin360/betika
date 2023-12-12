@@ -2,7 +2,8 @@
 ** This is a QA assessment for Betika, a sport betting site. It is a Maven project. The Script is written in Java Language **
 
 * Betika is a web application for sports Betting *
-
+## Author
+** John Kelvin Aondoakaa **
 
 ### ....... Installations ..... 
 
