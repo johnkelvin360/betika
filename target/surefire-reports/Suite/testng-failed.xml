@@ -10,14 +10,14 @@
   </listeners>
   <test thread-count="5" parallel="methods" name="betika(failed)" verbose="0">
     <classes>
-      <class name="com.betika.test_cases.RegistrationTest">
+      <class name="com.betika.test_cases.LoginDataProvider">
         <methods>
-          <include name="existingPhoneNumber"/>
+          <include name="validLogin" invocation-numbers="0 1 2 3"/>
           <include name="init"/>
           <include name="launchBrowser"/>
           <include name="terminate"/>
         </methods>
-      </class> <!-- com.betika.test_cases.RegistrationTest -->
+      </class> <!-- com.betika.test_cases.LoginDataProvider -->
     </classes>
   </test> <!-- betika(failed) -->
 </suite> <!-- Failed suite [Suite] -->

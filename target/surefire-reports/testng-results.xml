@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="3" failed="1" skipped="0">
+<testng-results ignored="0" total="0" passed="0" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-12-12T00:18:57 WAT" name="Suite" finished-at="2023-12-12T00:19:14 WAT" duration-ms="17623">
+  <suite started-at="2023-12-12T19:07:42 WAT" name="Suite" finished-at="2023-12-12T19:08:20 WAT" duration-ms="37780">
     <groups>
     </groups>
-    <test started-at="2023-12-12T00:18:57 WAT" name="betika" finished-at="2023-12-12T00:19:14 WAT" duration-ms="17623">
-      <class name="com.betika.test_cases.RegistrationTest">
-        <test-method is-config="true" signature="launchBrowser(java.lang.String,java.lang.String)[pri:0, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:18:57 WAT" name="launchBrowser" finished-at="2023-12-12T00:19:11 WAT" duration-ms="13983" status="PASS">
+    <test started-at="2023-12-12T19:07:42 WAT" name="betika" finished-at="2023-12-12T19:08:20 WAT" duration-ms="37780">
+      <class name="com.betika.test_cases.LoginDataProvider">
+        <test-method is-config="true" signature="launchBrowser(java.lang.String,java.lang.String)[pri:0, instance:com.betika.test_cases.LoginDataProvider@4a003cbe]" started-at="2023-12-12T19:07:42 WAT" name="launchBrowser" finished-at="2023-12-12T19:08:05 WAT" duration-ms="23352" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -23,68 +23,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchBrowser -->
-        <test-method is-config="true" signature="init()[pri:0, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:11 WAT" name="init" finished-at="2023-12-12T00:19:11 WAT" duration-ms="27" status="PASS">
+        <test-method is-config="true" signature="init()[pri:0, instance:com.betika.test_cases.LoginDataProvider@4a003cbe]" started-at="2023-12-12T19:08:05 WAT" name="init" finished-at="2023-12-12T19:08:05 WAT" duration-ms="25" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method signature="successfulRegistration()[pri:3, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:11 WAT" name="successfulRegistration" finished-at="2023-12-12T00:19:14 WAT" duration-ms="3352" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- successfulRegistration -->
-        <test-method signature="existingPhoneNumber(java.lang.String)[pri:2, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:11 WAT" name="existingPhoneNumber" finished-at="2023-12-12T00:19:11 WAT" duration-ms="0" status="FAIL">
-          <exception class="org.testng.TestNGException">
-            <message>
-              <![CDATA[
-Method public void com.betika.test_cases.RegistrationTest.existingPhoneNumber(java.lang.String) requires a @DataProvider named : getExistingPhoneNumberData in class Listeners.Parameterss]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.testng.TestNGException: 
-Method public void com.betika.test_cases.RegistrationTest.existingPhoneNumber(java.lang.String) requires a @DataProvider named : getExistingPhoneNumberData in class Listeners.Parameterss
-at org.testng.internal.Parameters.findDataProvider(Parameters.java:526)
-at org.testng.internal.Parameters.handleParameters(Parameters.java:763)
-at org.testng.internal.Parameters.handleParameters(Parameters.java:728)
-at org.testng.internal.invokers.ParameterHandler.handleParameters(ParameterHandler.java:72)
-at org.testng.internal.invokers.ParameterHandler.createParameters(ParameterHandler.java:51)
-at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:924)
-at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)
-at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-at java.base/java.lang.Thread.run(Thread.java:833)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.testng.TestNGException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- existingPhoneNumber -->
-        <test-method signature="invalidPhoneNumber(java.util.HashMap)[pri:1, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:11 WAT" name="invalidPhoneNumber" data-provider="getInValidData" finished-at="2023-12-12T00:19:12 WAT" duration-ms="1277" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{invalidPhone=1234567890, validPassword=#112346789p}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- invalidPhoneNumber -->
-        <test-method signature="invalidPhoneNumber(java.util.HashMap)[pri:1, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:12 WAT" name="invalidPhoneNumber" data-provider="getInValidData" finished-at="2023-12-12T00:19:13 WAT" duration-ms="561" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{validPassword=#112346789p, existingPhone=0715949396}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- invalidPhoneNumber -->
-        <test-method is-config="true" signature="terminate()[pri:0, instance:com.betika.test_cases.RegistrationTest@60099951]" started-at="2023-12-12T00:19:14 WAT" name="terminate" finished-at="2023-12-12T00:19:14 WAT" duration-ms="232" status="PASS">
+        <test-method is-config="true" signature="terminate()[pri:0, instance:com.betika.test_cases.LoginDataProvider@4a003cbe]" started-at="2023-12-12T19:08:19 WAT" name="terminate" finished-at="2023-12-12T19:08:20 WAT" duration-ms="169" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- terminate -->
-      </class> <!-- com.betika.test_cases.RegistrationTest -->
+      </class> <!-- com.betika.test_cases.LoginDataProvider -->
     </test> <!-- betika -->
   </suite> <!-- Suite -->
 </testng-results>

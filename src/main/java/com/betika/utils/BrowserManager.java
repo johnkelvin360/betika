@@ -35,7 +35,7 @@ public class BrowserManager {
 
     // Declare driver variable
     public static WebDriver driver;
-
+   
     public static Properties prop;
 
     public static int timeOut = 20;
@@ -103,11 +103,15 @@ public class BrowserManager {
     }
 
     public String getScreenshot(String TestCaseName, WebDriver driver) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        String DestinationName = System.getProperty("user.dir") + "//reports//" + TestCaseName + ".png";
-        FileUtils.copyFile(source, new File(DestinationName));
-        return DestinationName;
+        if (driver instanceof TakesScreenshot) {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            String destinationName = System.getProperty("user.dir") + "//reports//" + TestCaseName + ".png";
+            FileUtils.copyFile(source, new File(destinationName));
+            return destinationName;
+        } else {
+            throw new IllegalArgumentException("WebDriver instance is not set. Cannot take a screenshot.");
+        }
     }
 
     public static String random(String[] s) {

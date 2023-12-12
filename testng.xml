@@ -14,7 +14,11 @@
     <parameter name="url" value="https://www.betika.com/en-ke/"></parameter>
     <test name="betika" preserve-order="true">
         <classes>
+
             <class name="com.betika.test_cases.RegistrationTest"/>
+            <class name="com.betika.test_cases.LoginTest"/>
+            <class name="com.betika.test_cases.LoginDataProvider"/>
+            <class name="com.betika.test_cases.BetPlacementTest"/>
 
         </classes>
     </test>
