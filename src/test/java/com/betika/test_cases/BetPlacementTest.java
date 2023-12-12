@@ -19,7 +19,7 @@ public class BetPlacementTest extends BrowserManager {
     BetPlacement betPlacement;
 
     @BeforeClass
-    @Parameters({ "phoneNumber", "password" })
+    @Parameters({ "phoneNumber", "password",  })
     public void init(String phoneNumber, String password) throws IOException, InterruptedException {
         login = new Login();
         loginTest = new LoginTest();
