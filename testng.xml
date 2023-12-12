@@ -15,10 +15,11 @@
     <test name="betika" preserve-order="true">
         <classes>
 
-            <class name="com.betika.test_cases.RegistrationTest"/>
+            <!-- <class name="com.betika.test_cases.RegistrationTest"/>
             <class name="com.betika.test_cases.LoginTest"/>
-            <class name="com.betika.test_cases.LoginDataProvider"/>
+            <class name="com.betika.test_cases.LoginDataProvider"/> -->
             <class name="com.betika.test_cases.BetPlacementTest"/>
+            <!-- <class name="com.betika.test_cases.MyBetsTest"/> -->
 
         </classes>
     </test>
