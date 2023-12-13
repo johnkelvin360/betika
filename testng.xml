@@ -16,7 +16,9 @@
         <classes>
 
             <class name="com.betika.test_cases.RegistrationTest"/>
-
+            <methods>
+                    <parameter name="browser" value="chrome-headless"/>
+                </methods>
               <!-- Run LoginTest in headless mode -->
             <!-- <class name="com.betika.test_cases.LoginTest">
                 <methods>
@@ -25,6 +27,9 @@
             </class>
             <class name="com.betika.test_cases.LoginDataProvider"/> -->
              <class name="com.betika.test_cases.BetPlacementTest"/>
+              <methods>
+                    <parameter name="browser" value="chrome-headless"/>
+                </methods>
             <!-- <class name="com.betika.test_cases.MyBetsTest"/>  -->
 
         </classes>
