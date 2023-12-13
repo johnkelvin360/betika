@@ -25,30 +25,37 @@ public class Listeners extends BrowserManager implements ITestListener {
     }
 
     public void onTestSuccess(ITestResult result) {
-        extentTest.get().log(Status.PASS, "As Expected");
+        if (extentTest.get() != null) {
+            extentTest.get().log(Status.PASS, "As Expected");
+        }
     }
 
     public void onTestFailure(ITestResult result) {
-        extentTest.get().fail(result.getThrowable());
-        WebDriver driver = null;
+        if (extentTest.get() != null) {
+            extentTest.get().fail(result.getThrowable());
+            WebDriver driver = null;
 
-        String methodName = result.getMethod().getMethodName();
-        try {
-            driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
-        } catch (Exception e) {
-            // Handle exception
-        }
-        try {
-            extentTest.get().addScreenCaptureFromPath(getScreenshot(methodName, driver), result.getMethod().getMethodName());
-        } catch (IOException e) {
-            // Handle exception
-            e.printStackTrace();
+            String methodName = result.getMethod().getMethodName();
+            try {
+                driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+            } catch (Exception e) {
+                // Handle exception
+            }
+            try {
+                extentTest.get().addScreenCaptureFromPath(getScreenshot(methodName, driver), result.getMethod().getMethodName());
+            } catch (IOException e) {
+                // Handle exception
+                e.printStackTrace();
+            }
         }
     }
 
     public void onFinish(ITestContext context) {
-        ext.get().flush();
+        if (ext.get() != null) {
+            ext.get().flush();
+        }
     }
+
 
 
     public void onTestSkipped(ITestResult result) {
