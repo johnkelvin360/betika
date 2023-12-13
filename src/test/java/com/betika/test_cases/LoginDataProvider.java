@@ -5,7 +5,9 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -32,31 +34,35 @@ public class LoginDataProvider extends BrowserManager {
         softAssert = new SoftAssert();
     }
 
-    @Test(priority = 1, dataProvider = "getValidData")
+   @Test(priority = 1, dataProvider = "getValidData")
     public void validLogin(String phone, String password) throws IOException, InterruptedException {
         login.getLoginBtn().click();
         login.getPhoneNumberField().sendKeys(phone);
         login.getPasswordField().sendKeys(password);
         login.getSubmitBtn().click();
-        Assert.assertTrue(login.getProfile().isDisplayed());
-    
+        Thread.sleep(3000);
+        
+       
+        wait.until(ExpectedConditions.visibilityOf(login.getDepositBtn()));
+
+        Assert.assertTrue(login.getDepositBtn().isDisplayed());
+
         if (isValidLogin(phone, password)) {
-            login.getProfile().click();
-    
-            // Wait for the widget to be visible
+            // Click on the widget
+            login.clickWidget();
+
             wait.until(ExpectedConditions.visibilityOf(login.getWidget()));
-    
-            // Scroll towards the end of the page
-            scrollTowardsEnd(0.8);
-    
-            // Wait for the signout button to be clickable
-            wait.until(ExpectedConditions.elementToBeClickable(login.getSignOutBtn()));
-    
-            login.getSignOutBtn().click();
-    
-            // Wait for the login button to be visible again
+            WebElement sideWindow = login.getWidget();
+            scrollTowardsEnd(sideWindow, 0.10);
+
+            wait.until(ExpectedConditions.elementToBeClickable(login.getLogoutBtn()));
+
+            // Updated: Click using JavascriptExecutor
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", login.getLogoutBtn());
+
             wait.until(ExpectedConditions.visibilityOf(login.getLoginBtn()));
-    
+
             Assert.assertTrue(login.getLoginBtn().isDisplayed());
         } else {
             Assert.fail("Invalid login, but a valid login was received");
@@ -64,8 +70,7 @@ public class LoginDataProvider extends BrowserManager {
     }
 
     @Test(priority = 2, dataProvider = "getInvalidData")
-    public void invalidLogin(String phone, String password) throws IOException {
-       
+    public void invalidLogin(String phone, String password) throws IOException, InterruptedException {
         login.getPhoneNumberField().clear();
         login.getPasswordField().clear();
 
@@ -74,18 +79,21 @@ public class LoginDataProvider extends BrowserManager {
         login.getPhoneNumberField().sendKeys(phone);
         login.getPasswordField().sendKeys(password);
         login.getSubmitBtn().click();
+        Thread.sleep(3000);
+        
+        wait.until(ExpectedConditions.visibilityOf(login.getInvalidPhoneNumber()));
 
         Assert.assertTrue(login.getInvalidPhoneNumber().isDisplayed());
     }
 
     @DataProvider(name = "getValidData")
     public Object[][] getValidData() throws IOException {
-        return getData(1, 2); // 2 columns for valid login
+        return getData(1, 2); 
     }
 
     @DataProvider(name = "getInvalidData")
     public Object[][] getInvalidData() throws IOException {
-        return getData(2, 4); // 4 columns for invalid login
+        return getData(2, 4); 
     }
 
     private Object[][] getData(int startRow, int numColumns) throws IOException {
@@ -112,15 +120,14 @@ public class LoginDataProvider extends BrowserManager {
         return !(phone.equals("invalid_phone") && password.equals("invalid_password"));
     }
 
-    private void scrollTowardsEnd(double scrollPercentage) {
+    private void scrollTowardsEnd(WebElement element, double scrollPercentage) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-    
-        long windowHeight = (long) js.executeScript("return window.innerHeight");
-        long documentHeight = (long) js.executeScript("return Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );");
-        long scrollAmount = (long) (documentHeight * scrollPercentage);
-    
-        js.executeScript("window.scrollBy(0, " + scrollAmount + ")");
+
+        long windowHeight = (long) js.executeScript("return arguments[0].clientHeight", element);
+        long scrollHeight = (long) js.executeScript("return arguments[0].scrollHeight", element);
+        long scrollAmount = (long) (scrollHeight * scrollPercentage);
+
+        js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", element);
     }
 
-    
 }

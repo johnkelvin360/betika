@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -38,7 +39,7 @@ public class LoginTest extends BrowserManager{
 
     }
     @Test(priority = 2, dataProvider = "getInvalidData", dataProviderClass = Parameterss.class)
-    public void invalidLogin(HashMap<String, String> data) {
+    public void invalidLogin(HashMap<String, String> data){
         login.getLoginBtn().click();
         login.getPhoneNumberField().sendKeys(Keys.chord(Keys.COMMAND, "b"), data.get("invalidPhone"));
         login.getPasswordField().sendKeys(Keys.chord(Keys.COMMAND, "b"), data.get("invalidPassword"));
@@ -48,12 +49,14 @@ public class LoginTest extends BrowserManager{
     }
 
     @Test(priority = 3)
-	public void SuccessfulLoginTest(String phoneNumber, String password) throws InterruptedException {
-		login = new Login();
+    @Parameters({ "phoneNumber", "password" })
+    public void SuccessfulLoginTest(String phoneNumber, String password) throws InterruptedException {
+        login = new Login();
         login.getLoginBtn().click();
-		login.getPhoneNumberField().sendKeys(Keys.chord(Keys.COMMAND, "a"), phoneNumber);
-		login.getPasswordField().sendKeys(Keys.chord(Keys.COMMAND, "a"), password);
-		login.getSubmitBtn().click();
+        login.getPhoneNumberField().sendKeys(Keys.chord(Keys.COMMAND, "a"), phoneNumber);
+        login.getPasswordField().sendKeys(Keys.chord(Keys.COMMAND, "a"), password);
+        login.getSubmitBtn().click();
         Assert.assertTrue(login.getDepositBtn().isDisplayed());
-	}
+    }
+    
 }

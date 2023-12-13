@@ -43,11 +43,15 @@ public class Login extends BrowserManager {
     @FindBy (xpath = "//button[contains(text(),'Logout')]")
     WebElement logoutBtn;
 
-    @FindBy (xpath = "//button[contains(text(),'Deposit')]")
+    @FindBy (xpath = "//header/div[1]/div[1]/img[1]")
     WebElement depositBtn;
 
+    @FindBy (xpath = "//a[contains(text(),'Register')]")
+    static WebElement regBtn;
 
-
+    public WebElement getRegBtn(){
+       return regBtn;
+   }
     public WebElement getLoginBtn(){
         return loginBtn;
     }
@@ -75,8 +79,12 @@ public class Login extends BrowserManager {
     public WebElement getSignOutBtn(){
         return signOutBtn;
     }
-    public WebElement getWidget(){
+    public WebElement getWidget() {
         return widget;
+    }
+
+    public void clickWidget() {
+        widget.click();
     }
 
     public WebElement getLogoutBtn(){

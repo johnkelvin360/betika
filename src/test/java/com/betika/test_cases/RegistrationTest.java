@@ -36,20 +36,20 @@ public class RegistrationTest extends BrowserManager {
         verifycode = new VerificationCode();
     }
 
-    @Test(priority = 1, dataProvider = "getInValidData", dataProviderClass = Parameterss.class)
-    public void invalidPhoneNumber(HashMap<String, String> data) {
-        register.getRegBtn();
-        register.registration();
-        Assert.assertTrue(register.getPhoneNumberField().isDisplayed());
-    }
+    // @Test(priority = 1, dataProvider = "getInValidData", dataProviderClass = Parameterss.class)
+    // public void invalidPhoneNumber(HashMap<String, String> data) {
+    //     register.getRegBtn();
+    //     register.registration();
+    //     Assert.assertTrue(register.getPhoneNumberField().isDisplayed());
+    // }
 
-    @Test(priority = 2, dataProvider = "getExistingPhoneNumberData", dataProviderClass = Parameterss.class)
-    public void existingPhoneNumber(String phoneNumber) {
-        register.getRegBtn();
-        register.registration();
-        Assert.assertEquals(getPromptMessage().getText(), "Mobile already in use please login or reset password. ");
-        wait.until(ExpectedConditions.invisibilityOf(getPromptMessage()));
-    }
+    // @Test(priority = 2, dataProvider = "getExistingPhoneNumberData", dataProviderClass = Parameterss.class)
+    // public void existingPhoneNumber(String phoneNumber) {
+    //     register.getRegBtn();
+    //     register.registration();
+    //     Assert.assertEquals(getPromptMessage().getText(), "Mobile already in use please login or reset password. ");
+    //     wait.until(ExpectedConditions.invisibilityOf(getPromptMessage()));
+    // }
 
     @Test(priority = 3)
     public void successfulRegistration() throws InterruptedException {

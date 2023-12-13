@@ -36,14 +36,15 @@ public class MyBetsTest extends BrowserManager {
     }
 
     @Test(priority = 2)
+    public void betCashOutTest() throws InterruptedException {
+        Thread.sleep(1500);
+        myBets.verifyCashOut();
+    }
+
+    @Test(priority = 3)
     public void betCancelTest() throws InterruptedException {
         Thread.sleep(1500);
         myBets.verifyBetCancellation();
     }
 
-    @Test(priority = 3)
-    public void betCashOutTest() throws InterruptedException {
-        Thread.sleep(1500);
-        myBets.verifyCashOut();
-    }
 }
