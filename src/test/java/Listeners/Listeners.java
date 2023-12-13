@@ -14,45 +14,42 @@ import com.betika.utils.extentReporter;
 import com.betika.utils.BrowserManager;
 
 public class Listeners extends BrowserManager implements ITestListener {
-    ExtentReports ext = extentReporter.getExtentReport();
-    ExtentTest test;
-    ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>(); //Parallel test
+    private static ThreadLocal<ExtentReports> ext = new ThreadLocal<>();
+    private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
 
     public void onTestStart(ITestResult result) {
-
-        // TODO Auto-generated method stub
-        test = ext.createTest(result.getMethod().getMethodName());
-        extentTest.set(test); //parallel test
+        ExtentReports extent = extentReporter.getExtentReport();
+        ExtentTest test = extent.createTest(result.getMethod().getMethodName());
+        extentTest.set(test);
+        ext.set(extent);
     }
 
     public void onTestSuccess(ITestResult result) {
-        // TODO Auto-generated method stub
-        //test.log(Status.PASS, "As Expected");  //sequential test
-        extentTest.get().log(Status.PASS, "As Expected"); //parallel test
+        extentTest.get().log(Status.PASS, "As Expected");
     }
 
     public void onTestFailure(ITestResult result) {
-        // TODO Auto-generated method stub
-        //test.fail(result.getThrowable()); //sequential test
-        extentTest.get().fail(result.getThrowable()); //parallel test
+        extentTest.get().fail(result.getThrowable());
         WebDriver driver = null;
 
         String methodName = result.getMethod().getMethodName();
         try {
             driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+            // Handle exception
         }
         try {
-            extentTest.get().addScreenCaptureFromPath(getScreenshot(methodName, driver), result.getMethod().getMethodName()); //parallel test
-            //getScreenshot(methodName, driver); //sequential test
+            extentTest.get().addScreenCaptureFromPath(getScreenshot(methodName, driver), result.getMethod().getMethodName());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Handle exception
             e.printStackTrace();
         }
-
-
     }
+
+    public void onFinish(ITestContext context) {
+        ext.get().flush();
+    }
+
 
     public void onTestSkipped(ITestResult result) {
         // TODO Auto-generated method stub
@@ -74,8 +71,5 @@ public class Listeners extends BrowserManager implements ITestListener {
 
     }
 
-    public void onFinish(ITestContext context) {
-        // TODO Auto-generated method stub
-        ext.flush();
-    }
+    
 }
