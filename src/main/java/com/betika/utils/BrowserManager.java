@@ -35,7 +35,7 @@ public class BrowserManager {
 
     // Declare driver variable
     public static WebDriver driver;
-   
+
     public static Properties prop;
 
     public static int timeOut = 20;
@@ -56,64 +56,63 @@ public class BrowserManager {
     }
 
     @BeforeClass
-@Parameters({ "url", "browser" })
-public void launchBrowser(String url, String browserType) throws IOException {
-    prop = new Properties();
-    FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src/main//" +
-            "java//com//betika//utils//data.properties");
-    prop.load(fis);
-    try {
-        if (browserType.toLowerCase().contains("chrome")) {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("use-fake-ui-for-media-stream");
-            options.addArguments("enable-automation");
-            options.addArguments("--disable-infobars");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--remote-allow-origins=*");
+    @Parameters({ "url", "browser" })
+    public void launchBrowser(String url, String browserType) throws IOException {
+        prop = new Properties();
+        FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src/main//" +
+                "java//com//betika//utils//data.properties");
+        prop.load(fis);
+        try {
+            if (browserType.toLowerCase().contains("chrome")) {
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("use-fake-ui-for-media-stream");
+                options.addArguments("enable-automation");
+                options.addArguments("--disable-infobars");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--remote-allow-origins=*");
 
-            if (browserType.toLowerCase().contains("headless")) {
-                options.addArguments("headless");
+                if (browserType.toLowerCase().contains("headless")) {
+                    options.addArguments("headless");
+                }
+
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver(options);
+            } else if (browserType.equalsIgnoreCase("firefox")) {
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+            } else {
+                org.testng.Assert.fail("Invalid Browser Type: " + browserType);
             }
 
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver(options);
-        } else if (browserType.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
-        } else {
-            org.testng.Assert.fail("Invalid Browser Type: " + browserType);
+            driver.manage().window().setSize(new Dimension(1920, 1080));
+
+            // Manage driver properties
+            driver.manage().deleteAllCookies();
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+            driver.manage().window().maximize();
+            driver.get(url);
+
+            Thread.sleep(3000);
+
+            System.out.println(browserType);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-        driver.manage().window().setSize(new Dimension(1920, 1080));
-
-        // Manage driver properties
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-        driver.get(url);
-
-        Thread.sleep(3000);
-
-        System.out.println(browserType);
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+        wait = new WebDriverWait(driver, durationInSeconds);
+        softAssert = new SoftAssert();
+        executor = (JavascriptExecutor) driver;
     }
-    wait = new WebDriverWait(driver, durationInSeconds);
-    softAssert = new SoftAssert();
-    executor = (JavascriptExecutor) driver;
-}
-
 
     public String getScreenshot(String TestCaseName, WebDriver driver) throws IOException {
-        if (driver instanceof TakesScreenshot) {
+        if (driver != null && driver instanceof TakesScreenshot) {
             TakesScreenshot ts = (TakesScreenshot) driver;
             File source = ts.getScreenshotAs(OutputType.FILE);
             String destinationName = System.getProperty("user.dir") + "//reports//" + TestCaseName + ".png";
             FileUtils.copyFile(source, new File(destinationName));
             return destinationName;
         } else {
-            throw new IllegalArgumentException("WebDriver instance is not set. Cannot take a screenshot.");
+            throw new IllegalStateException("WebDriver instance is not set. Cannot take a screenshot.");
         }
     }
 
@@ -123,15 +122,15 @@ public void launchBrowser(String url, String browserType) throws IOException {
     }
 
     public static String dynamicNumber() {
-        long min = 1000000L; 
-        long max = 9999999L; 
-    
+        long min = 1000000L;
+        long max = 9999999L;
+
         long randomValue = min + (long) (Math.random() * (max - min + 1));
         String dynamicNumber = "072" + String.format("%07d", randomValue);
         return dynamicNumber;
-        
+
     }
-    
+
     public static String dynamicPassword() {
         int min = 0;
         int max = 1000000000;
